@@ -75,7 +75,8 @@ class MyFilesPipeline(FilesPipeline):
 
         item = request.meta['item']
         folder = item['novelName']
+	filename = item['novelName']
         image_guid = request.url.split('/')[-1]
-        filename = u'full/{0}/{1}'.format(folder, image_guid)
+        filename = u'full/{0}/{1}.txt'.format(folder, filename)
 
         return filename

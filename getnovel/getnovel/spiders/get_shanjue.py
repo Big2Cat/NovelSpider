@@ -51,11 +51,13 @@ class GetNovelSj(scrapy.Spider):
         novelName = re.sub(u'TXT全集下载', '', novelName[0])
         simpleIntro = response.xpath(
             '*//div[@class="novelcon top20"]/p').extract()[0]
-        novelcode = response.meta['novelcode']
+        # novelcode = response.meta['novelcode']
         a1 = response.xpath('*//a[@class="favBn"]/@href').extract()[0]
-        a2 = re.search('classid=(\d+)', a1).group(1)
+        a = re.search('classid=(\d+)&id=(\d+)', a1)
+        a2 = a.group(1)
+        a3 = a.group(2)
         to_get_download_url = 'http://www.shanjue.com/e/DownSys/DownSoft/?classid=' + a2 + '&id=' + \
-            novelcode + '&pathid=0'
+            a3 + '&pathid=0'
 
         yield scrapy.Request(to_get_download_url, meta={'coverImage': coverImage,
                                                         'novelName': novelName,
